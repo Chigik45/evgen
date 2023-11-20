@@ -4,9 +4,9 @@ const app = express();
 const port = 3000;
 
 
-function getApiResponse(url) {
+async function getApiResponse(url) {
     try {
-        const response = axios.get(url);
+        const response = await axios.get(url);
         return response.data;
     } catch (error) {
         console.error(error);
@@ -26,8 +26,14 @@ app.get('/', (req, res) => {
 app.get('/all', (req, res) => {
   res.json(episodes);
 });
-app.get('/get', (req, res) => {
-    res.json(getApiResponse("https://ponyapi.net/v1/character/1"));
+app.get('/get', async (req, res) => {
+    try {
+        const response = await getApiResponse("https://ponyapi.net/v1/character/1");
+        res.json(response);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('An error occurred while fetching data from the API');
+    }
 });
 
 app.listen(port, () => {
