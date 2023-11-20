@@ -3,7 +3,6 @@ const axios = require('axios');
 const app = express();
 const port = 3000;
 
-const axios = require('axios');
 
 async function getApiResponse(url) {
     try {
