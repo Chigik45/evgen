@@ -4,9 +4,9 @@ const app = express();
 const port = 3000;
 
 
-async function getApiResponse(url) {
+function getApiResponse(url) {
     try {
-        const response = await axios.get(url);
+        const response = axios.get(url);
         return response.data;
     } catch (error) {
         console.error(error);
