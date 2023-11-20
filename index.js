@@ -1,7 +1,19 @@
 const express = require('express');
-const fs = require('fs');
+const axios = require('axios');
 const app = express();
 const port = 3000;
+
+const axios = require('axios');
+
+async function getApiResponse(url) {
+    try {
+        const response = await axios.get(url);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 
 let episodes = [];
 
@@ -13,7 +25,10 @@ app.get('/', (req, res) => {
 });
 
 app.get('/all', (req, res) => {
-    res.json(episodes);
+  res.json(episodes);
+});
+app.get('/get', (req, res) => {
+    res.json(getApiResponse("https://ponyapi.net/v1/character/1"));
 });
 
 app.listen(port, () => {
